@@ -119,7 +119,6 @@ public class ClosestPointProblem {
 		int x = p1.getX() - p2.getX();
 		int y = p1.getY() - p2.getY();
 		double distance = Math.sqrt(x * x + y * y);
-		System.out.println(p1.getX()+","+p1.getY()+" - "+p2.getY()+","+p2.getX()+" - dist "+Math.sqrt(x * x + y * y));
 		return distance;
 	}
 	
