@@ -14,8 +14,4 @@ public class Point {
 	public int getY() {
 		return y;
 	}
-	
-	public int compare(Point this, Point that) {
-		return this.x - that.x;
-	}
 }
