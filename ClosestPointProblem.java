@@ -5,22 +5,30 @@ import java.util.Comparator;
 public class ClosestPointProblem {
 	static Point point1 = null;
 	static Point point2 = null;
-	static double minDist;
+	static double minDist = Double.POSITIVE_INFINITY;
 	
 	public static void main(String[] args) {
 		ArrayList<Point> list = new ArrayList<Point>();
-		Point p1 = new Point(2,3);
-		Point p2 = new Point(12,30);
-		Point p3 = new Point(40,50);
-		Point p4 = new Point(5,1);
-		Point p5 = new Point(12,10);
-		Point p6 = new Point(3,4);
+		Point p1 = new Point(1,1);
+		Point p2 = new Point(2,1);
+		Point p3 = new Point(2,6);
+		Point p4 = new Point(4,4);
+		Point p5 = new Point(4,10);
+		Point p6 = new Point(6,5);
+		Point p7 = new Point(7,2);
+		Point p8 = new Point(7,10);
+		Point p9 = new Point(10,5);
+		Point p10 = new Point(12,1);
 		list.add(p1);
 		list.add(p2); 
 		list.add(p3); 
 		list.add(p4); 
 		list.add(p5); 
 		list.add(p6);
+		list.add(p7);
+		list.add(p8);
+		list.add(p9);
+		list.add(p10);
 		//add values to list here.
 		
 		findMinDistance(list);
@@ -42,11 +50,21 @@ public class ClosestPointProblem {
 		Point[] sortedByX = preProcessX(list);
 		Point[] sortedByY = preProcessY(list);
 		
+		for(int i = 0; i < list.size() - 1; i++) {
+			if(sortedByX[i] == sortedByX[i + 1]){
+				minDist = 0;
+				point1 = sortedByX[i];
+				point2 = sortedByX[i+1];
+				break;
+			}
+		}
+		
 		minDist = findClosestPoint(sortedByX, sortedByY, 0, list.size()-1);
 	}
 	/**
 	 * Finds the 2 closest points given a sequence of Point objects. Using the divide and conquer technique to solve the problem
-	 * in O(nlogn) time. 
+	 * in O(nlogn) time. In order to keep the Points and not only the distance(see return), bookkeeping has to be done with a variable "point1" and "point2"
+	 * accessible to the method.
 	 * 
 	 * @param xSorted	an array of Points sorted by their value X in ascending order.
 	 * @param ySorted	an array of Points sorted by their value Y in ascending order.
@@ -68,8 +86,6 @@ public class ClosestPointProblem {
 		
 		if (top - bot == 1 && d == Double.POSITIVE_INFINITY) {
 			d = distance(xSorted[bot], xSorted[top]);
-			point1 = xSorted[bot];
-			point2 = xSorted[top];
 		}
 		
 		ArrayList<Point> strip = new ArrayList<Point>();
@@ -87,8 +103,11 @@ public class ClosestPointProblem {
 				}
 				else if(distance(strip.get(i), strip.get(j)) < d){
 					d = distance(strip.get(i), strip.get(j));
-					point1 = strip.get(i);
-					point2 = strip.get(j);
+					if(d < minDist) {
+						minDist = d;
+						point1 = strip.get(i);
+						point2 = strip.get(j);
+					}
 				}
 			}
 		}
@@ -99,7 +118,9 @@ public class ClosestPointProblem {
 	public static double distance(Point p1, Point p2) {
 		int x = p1.getX() - p2.getX();
 		int y = p1.getY() - p2.getY();
-		return Math.sqrt(x * x + y * y);
+		double distance = Math.sqrt(x * x + y * y);
+		System.out.println(p1.getX()+","+p1.getY()+" - "+p2.getY()+","+p2.getX()+" - dist "+Math.sqrt(x * x + y * y));
+		return distance;
 	}
 	
 	public static Point[] preProcessX(ArrayList<Point> list) {
