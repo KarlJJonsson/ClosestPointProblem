@@ -12,23 +12,9 @@ public class ClosestPointProblem {
 		Point p1 = new Point(1,1);
 		Point p2 = new Point(2,1);
 		Point p3 = new Point(2,6);
-//		Point p4 = new Point(4,4);
-//		Point p5 = new Point(4,10);
-//		Point p6 = new Point(6,5);
-//		Point p7 = new Point(7,2);
-//		Point p8 = new Point(7,10);
-//		Point p9 = new Point(10,5);
-//		Point p10 = new Point(12,1);
 		list.add(p1);
 		list.add(p2); 
 		list.add(p3); 
-//		list.add(p4); 
-//		list.add(p5); 
-//		list.add(p6);
-//		list.add(p7);
-//		list.add(p8);
-//		list.add(p9);
-//		list.add(p10);
 		//add values to list here.
 		
 		findMinDistance(list);
@@ -87,7 +73,7 @@ public class ClosestPointProblem {
 		double delta = Math.min(delta1,delta2);
 		
 		//used to shorten down runtime when only 2 nodes are inside a "block".
-		//Skips second for loop using this.
+		//Skips second for-loop using this.
 		if (top - bot == 1 && delta == Double.POSITIVE_INFINITY) {
 			delta = distance(xSorted[bot], xSorted[top]);
 			minDist = delta;
